@@ -10,7 +10,7 @@ Unlike most of these systems, MINIX:
 
 - Is heavily commented.
 - Comes with three highly detailed books as its primary form of documentation.
-- Has a much smaller and easier to understand kernel (it helps that it's a microkernel).
+- Has a much smaller and easier-to-understand kernel (it helps that it's a microkernel).
 - Runs quite well on an emulator without melting your CPU (at least since the 2nd edition).
 
 Although xv6 and these other systems have been valuable tools for me (and may have extra features, like threads and NAT), I have found that the MINIX documentation is the most extensive.
@@ -38,7 +38,7 @@ Recompiling the system:
 ![recompile](https://github.com/o-oconnell/minixfromscratch/blob/master/screenshots/minixcompile.png)
 
 ## Minimal working example
-Assuming you have QEMU installed, run `./qemuminix3.sh`. After it boots, you can login with username "root" and no password. To edit the code and recompile:
+Assuming you have QEMU installed, run `./qemuminix3.sh`. After it boots, you can log in with username "root" and no password. To edit the code and recompile:
 
 - Exit MINIX with CTRL+ALT+DEL (if you do not, you may lose files that were not synced to the hard disk). You'll then need to close QEMU manually (MINIX doesn't know how).
 - Mount the root, usr, and home partitions with `./mountminix3`. Linux requires superuser permissions to mount a file system.
@@ -52,12 +52,12 @@ Relevant quote from Andy Tanenbaum:
 
 For people who thought little of MS-DOS , the existence of MINIX (with source code) as an alternative was even a reason to finally go out and buy a PC. One of these people was a Finnish student named Linus Torvalds. Torvalds installed MINIX on his new PC and studied the source code carefully...By Aug. 1991 he had produced a primitive kernel. On Aug. 25, 1991, he announced it on comp.os.minix...Thus was Linux born (OSDI, 3e, p.19).
 
-MINIX is a great tool for learning about Linux. MINIX is like a small and simplified version of Linux - Linus took heavy inspiration from it, and his legendary ["nothing big"](https://www.cs.cmu.edu/~awb/linux.history.html) post announcing Linux was first posted on the comp.os.minix newsboard. Within MINIX you will find many familiar Unix/Linux tools and features, including:
+MINIX is a great tool for learning about Linux. MINIX is like a small and simplified version of Linux - Linus took heavy inspiration from it, and his legendary ["nothing big"](https://www.cs.cmu.edu/~awb/linux.history.html) post announcing Linux was first posted on the comp.os.minix news board. Within MINIX you will find many familiar Unix/Linux tools and features, including:
 
 - A similar directory structure: files such as /etc/utmp, /etc/passwd, /dev are where you expect them to be.
 - A Bash interpreter (ash) with source code.
 - Similar filesystem conventions: just as in Linux, you can mount filesystems directly onto the root filesystem with `mount`.
-- A similar system administration structure, with familiar utilities like `chmod`, `mkfs`, `mkisofs` (`genisoimage`), `part` (similar to `fdisk` or `parted`) an Emacs clone (elle) and a Vim clone (evil). 
+- A similar system administration structure, with familiar utilities like `chmod`, `mkfs`, `mkisofs` (`genisoimage`), `part` (similar to `fdisk` or `parted`) an Emacs clone (elle), and a Vim clone (evil). 
 
 ## MINIX is useful for learning about
 
@@ -73,7 +73,7 @@ MINIX is a great tool for learning about Linux. MINIX is like a small and simpli
 - Data structures and algorithms
 
 ## Making your own hard disk image
-To make a bootable and editable hard disk image, you'll need to install from the official MINIX CD. You can find it at [minix3.org](minix3.org). MINIX 3 comes with a `setup.sh` utility in, which will install to the hard disk that you specify with your desired network card, partitions, etc.
+To make a bootable and editable hard disk image, you'll need to install it from the official MINIX CD. You can find it at [minix3.org](minix3.org). MINIX 3 comes with a `setup.sh` utility, which will install to the hard disk that you specify with your desired network card, partitions, etc.
 
 ## References
 - [Operating Systems: Design and Implementation (3e)](https://www.amazon.com/Operating-Systems-Design-Implementation-3rd/dp/0131429388)
