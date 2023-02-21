@@ -18,6 +18,7 @@ Although xv6 and these other systems have been valuable tools for me (and may ha
 ## Screenshots
 
 The login screen:
+
 ![login](https://github.com/o-oconnell/minixfromscratch/blob/master/screenshots/minixlogin.png)
 
 Using the built-in partition editor, `part`:
