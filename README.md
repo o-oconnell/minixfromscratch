@@ -2,7 +2,7 @@
 
 ## Why MINIX?
 
-Until now, I have not been able to find a MINIX 3 project that allows you to compile the code that is referenced in the book *Operating Systems: Design and Implementation (3e)* (v3.1.0). It was tricky to get a reasonable development setup to make it possible for newbies like myself to learn from the book. This is an attempt to fix that and make it easy to browse, edit, recompile, and execute the code.
+I believe that learning MINIX is probably the best way to learn about operating systems. Until now, I have not been able to find a MINIX 3 project that allows you to compile the code that is referenced in the book *Operating Systems: Design and Implementation (3e)* (v3.1.0). It was tricky to get a reasonable development setup to make it possible for newbies like myself to learn from the book. This is an attempt to fix that and make it easy to browse, edit, recompile, and execute the code.
 
 Why should you learn MINIX instead of Linux? Or rather than another teaching OS such as xv6, NachOS, or Xinu?
 
