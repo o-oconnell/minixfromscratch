@@ -52,7 +52,7 @@ Relevant quote from Andy Tanenbaum:
 
 For people who thought little of MS-DOS , the existence of MINIX (with source code) as an alternative was even a reason to finally go out and buy a PC. One of these people was a Finnish student named Linus Torvalds. Torvalds installed MINIX on his new PC and studied the source code carefully...By Aug. 1991 he had produced a primitive kernel. On Aug. 25, 1991, he announced it on comp.os.minix...Thus was Linux born (OSDI, 3e, p.19).
 
-MINIX is a great tool for learning about Linux. MINIX is like a small and simplified version of Linux - Linus took heavy inspiration from it, and his legendary ["nothing big"](https://www.cs.cmu.edu/~awb/linux.history.html) post announcing Linux was first posted on the comp.os.minix newsboard. Within MINIX you will find many familiar Linux tools and features, including:
+MINIX is a great tool for learning about Linux. MINIX is like a small and simplified version of Linux - Linus took heavy inspiration from it, and his legendary ["nothing big"](https://www.cs.cmu.edu/~awb/linux.history.html) post announcing Linux was first posted on the comp.os.minix newsboard. Within MINIX you will find many familiar Unix/Linux tools and features, including:
 
 - A similar directory structure: files such as /etc/utmp, /etc/passwd, /dev are where you expect them to be.
 - A Bash interpreter (ash) with source code.
