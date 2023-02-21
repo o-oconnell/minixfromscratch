@@ -1,0 +1,177 @@
+# /etc/rc - System startup script run by init before going multiuser.
+
+umask 022
+TERM="${TERM-minix}"
+PATH=/usr/local/bin:/bin:/usr/bin:/usr/sbin
+RC_TZ=/etc/rc.timezone
+export TERM PATH
+
+usage()
+{
+    echo >&2 "Usage: $0 [-saf] start|stop|down"
+    exec intr sh
+}
+
+up()
+{
+    service=$1
+    args=$2
+    device=$3
+
+    # Function to dynamically start a system service
+    command="/sbin/$service"
+    if [ ! -z "$args" ]; then command="$command -args \"$args\""; fi
+    if [ ! -z "$device" ]; then command="$command -dev \"$device\""; fi
+    echo -n " $service"
+    eval service up $command
+}
+
+while getopts 'saf' opt
+do
+    case $opt in
+    s)	sflag=t ;;	# Single user
+    a)	aflag=t ;;	# Ask for /usr
+    f)	fflag=t ;;	# Force a full file system check
+    *)	usage
+    esac
+done
+shift `expr $OPTIND - 1`
+
+case "$#:$1" in
+1:start|1:stop|1:down)
+    action=$1
+    ;;
+*)  usage
+esac
+
+case $action in
+start)
+    echo ""
+    echo -n "Multiuser startup in progress ...:"
+
+    # National keyboard?
+    test -f /etc/keymap && loadkeys /etc/keymap
+
+    # Start crucial system services. The floppy driver *must* be loaded 
+    # first, as it needs memory below 16MB in order to do ISA DMA.
+    if [ ! "`sysenv label`" = "FLOPPY" ]  
+    then up floppy "" /dev/fd0
+    else up at_wini "" /dev/c0d0
+    fi
+    up is ""
+    up cmos "" /dev/cmos
+    echo .
+
+    # Set timezone.
+    export TZ=GMT0
+    if [ -f "$RC_TZ" ]
+    then . "$RC_TZ"
+    fi
+
+    # Try to read the hardware real-time clock, otherwise do it manually.
+    readclock || intr date -q
+
+    # Initialize files.
+    printroot >/etc/mtab		# /etc/mtab keeps track of mounts
+    >/etc/utmp				# /etc/utmp keeps track of logins
+
+    # /etc/fstab lists the root, tmp and usr devices.
+    . /etc/fstab
+
+    # Any swapspace on a device?
+    test "$swap" : '/dev/' && mount -s $swap
+
+    # Are we booting from CD?
+    bootcd="`/bin/sysenv bootcd`"
+
+    # If booting from CD, /usr has to be mounted readonly.
+    # Also, $usr won't be specified correctly in the
+    # fstab (the CD could be anywhere), so we decide
+    # where it is based on sysenv (set by FS when probing for CD).
+    if [ "$bootcd" = 1 ]
+    then	
+    		imagedev="`/bin/sysenv cdproberoot`"
+    		usrdev="`expr $imagedev + 1`"
+    		usr_roflag="-r"
+    		usr="`/bin/dev2name $usrdev`"
+    		echo "Setting /usr to mount readonly from cd: $usrdev -> $usr"
+    fi
+ 
+    # Mount the /usr partition unless this is a single floppy Minix.
+    if [ ! -d /usr/bin ]
+    then
+	if [ "$aflag" -o "$usr" = unknown ]
+	then
+	    # We need to ask what the /usr du jour is.
+	    intr sh -c '
+		echo -n "Finish the name of device to mount as /usr: /dev/"
+		read usr
+		echo "usr=/dev/$usr" >/tmp/usr'
+	    . /tmp/usr
+	fi
+	mount $usr_roflag $usr /usr || {
+	    echo "\
+Please try to mount something else as /usr, then hit CTRL-D to continue startup.
+Mount $usr /usr failed -- Single user."
+	    intr sh
+	}
+	rm -f /tmp/usr
+    fi
+
+    # Check if the system crashed.
+    if shutdown -C
+    then
+	echo
+	echo "The system was not properly shut down.  Checking file systems."
+	fflag=t
+    fi
+
+    if [ "$fflag" ]
+    then
+	umount $usr
+	intr fsck -r $root
+	intr fsck -r $usr
+	if [ ! -z "$home" ]
+	then	intr fsck -r $home
+	fi
+	mount $usr /usr
+    fi
+
+    if [ ! -z "$home" ]
+    then mount $home /home || echo "WARNING: couldn't mount $home on /home"
+    fi
+
+    # This file is necessary for above 'shutdown -C' check.
+    # (Silence stderr in case of running from cd.)
+    touch /usr/adm/wtmp 2>/dev/null
+
+    if [ "$sflag" ]
+    then
+	echo "Single user."
+	intr sh
+    fi
+
+    # Any swapspace on a file?
+    test -n "$swap" -a ! "$swap" : '/dev/' && mount -s $swap
+
+
+    case "`printroot -r`":$bootcd in
+    /dev/ram:)
+	# Remove boot-only things to make space,
+	# unless booting from CD, in which case we need them.
+	rm -rf /boot
+	# put the compiler on ram
+	cp /usr/lib/em* /usr/lib/cpp* /lib
+    esac
+
+    # Things should be alright now.
+esac
+
+# Further initialization.
+test -f /usr/etc/rc && sh /usr/etc/rc $action
+test -f /usr/local/etc/rc && sh /usr/local/etc/rc $action
+
+# Any messages?
+test "$action" = start -a -f /etc/issue && cat /etc/issue
+
+exit 0
