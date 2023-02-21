@@ -18,16 +18,16 @@ Although xv6 and these other systems have been valuable tools for me (and may ha
 ## Screenshots:
 
 The login screen:
-![login](https://github.com/o-oconnell/minixfromscratch/blob/main/screenshots/minixlogin.png)
+![login](https://github.com/o-oconnell/minixfromscratch/blob/master/screenshots/minixlogin.png)
 
 Using the built-in partition editor, `part`:
-![part](https://github.com/o-oconnell/minixfromscratch/blob/main/screenshots/part.png)
+![part](https://github.com/o-oconnell/minixfromscratch/blob/master/screenshots/part.png)
 
 Navigating the code in /usr/src:
-![src](https://github.com/o-oconnell/minixfromscratch/blob/main/screenshots/src.png)
+![src](https://github.com/o-oconnell/minixfromscratch/blob/master/screenshots/src.png)
 
 Recompiling the system:
-![recompile](https://github.com/o-oconnell/minixfromscratch/blob/main/screenshots/minixcompile.png)
+![recompile](https://github.com/o-oconnell/minixfromscratch/blob/master/screenshots/minixcompile.png)
 
 ## Minimal working example:
 Assuming you have QEMU installed, run `./qemuminix3.sh`. After it boots, you can login with username "root" and no password. To edit the code and recompile:

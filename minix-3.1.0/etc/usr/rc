@@ -1,0 +1,167 @@
+# /usr/etc/rc - continued system initialization.
+
+RANDOM_FILE=/usr/adm/random.dat
+LOCAL_FILE=/usr/etc/rc.local
+
+case "$#:$1" in
+1:start|1:stop|1:down)
+    action=$1
+    ;;
+*)  echo >&2 "Usage: $0 start|stop|down"
+    exit 1
+esac
+
+if [ -f "$LOCAL_FILE" ]
+then	. "$LOCAL_FILE" $1
+fi
+
+disabled()
+{
+    ifs="$IFS"; IFS=,
+    for skip in `sysenv disable`
+    do 
+        if [ "$skip" = "$1" ]
+	then 	 
+                IFS="$ifs"; unset ifs
+		return 0
+	fi
+    done
+    IFS="$ifs"; unset ifs
+    return 1
+}
+
+daemonize()
+{
+    # Function to start a daemon, if it exists.
+    local IFS=':'
+    local name="$1"
+    test "$1" = tcpd && name="$2"
+
+    for dir in $PATH
+    do
+	if [ -f "$dir/$1" ]
+	then
+
+            # check if this service is disabled at the boot monitor.
+            if disabled $name; then return; fi
+
+	    echo -n " $name"
+	    "$@" &
+	    return
+	fi
+    done
+}
+
+up()
+{
+    service=$1
+    args=$2
+    device=$3
+
+    # Function to dynamically start a system service
+
+    # First check if this service is disabled at the boot monitor.
+    if disabled $service; then return; fi
+
+    # Service is not disabled. Try to bring it up.
+    command="/usr/sbin/$service"
+    if [ ! -z "$args" ]; then command="$command -args \"$args\""; fi
+    if [ ! -z "$device" ]; then command="$command -dev \"$device\""; fi
+    echo -n " $service"
+    eval service up $command
+}
+
+case $action in
+start)
+    # Select console font.
+    test -f /etc/font && loadfont /etc/font </dev/console
+
+    # Cleanup.
+    rm -rf /tmp/. /usr/run/. /usr/spool/lpd/. /usr/spool/locks/.
+
+    # Start servers and drivers set at the boot monitor.
+    echo -n "Starting services:"
+    up random "" /dev/random
+
+    # load random number generator
+    if [ -f $RANDOM_FILE ]
+    then
+    	cat < $RANDOM_FILE >/dev/random
+    	# overwrite $RANDOM_FILE. We don't want to use this data again
+    	dd if=/dev/random of=$RANDOM_FILE bs=1024 count=1 2> /dev/null
+    fi
+
+    # start only network drivers that are in use
+    for driver in lance rtl8139 fxp dpeth dp8390
+    do
+        if grep " $driver " /etc/inet.conf > /dev/null  2>&1
+        then 
+            eval arg=\$${driver}_arg
+            up $driver "$arg"
+        fi
+    done
+    up inet ""
+    up printer "" /dev/lp
+    echo .
+
+    # Network initialization.
+    (: </dev/tcp) 2>/dev/null && net=t	# Is there a TCP/IP server?
+
+    echo -n "Starting daemons:"
+    daemonize update
+    rotate /usr/log/messages 7
+    daemonize usyslogd
+
+    # Ugly error message when starting cron from CD.
+    # (and cron unnecessary then so..)
+    if [ ! -f /CD ]
+    then	daemonize cron
+    else	. /etc/rc.cd
+    fi
+    echo .
+
+    if [ "$net" ]
+    then
+	if [ -f /etc/rc.net ]
+	then
+	    # Let a customized TCP/IP initialization script figure it out.
+	    . /etc/rc.net
+	else
+	    # Standard network daemons.
+    	    echo -n "Starting networking:"
+	    daemonize dhcpd
+	    daemonize nonamed
+	    daemonize talkd
+	    daemonize tcpd shell in.rshd
+	    daemonize tcpd login in.rlogind
+	    daemonize tcpd telnet in.telnetd
+	    daemonize tcpd ftp in.ftpd
+	    # The last daemon has been started, so close the list:
+	    echo .
+	fi
+    fi
+
+    if [ "$net" ]
+    then
+	# Get the nodename from the DNS and set it.
+	trap '' 2
+	intr -t 10 hostaddr -h || echo "Unable to obtain an IP address."
+	trap 2
+    fi
+
+    # Recover files being edited when the system crashed.
+    test -f /usr/bin/elvprsv && elvprsv /usr/tmp/elv*
+
+    # Run the daily cleanup on systems that are not on at night.
+    test -f /usr/etc/daily && sh /usr/etc/daily boot &
+
+;;
+stop|down)
+    	# Save random data.
+    	if dd if=/dev/random of=$RANDOM_FILE.new bs=1024 count=1 2>/dev/null
+    	then
+    		mv $RANDOM_FILE.new $RANDOM_FILE
+	else
+		echo 'Failed to save random data.'
+	fi
+esac
