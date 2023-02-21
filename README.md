@@ -7,22 +7,27 @@ Until now, I have not been able to find a MINIX 3 project that allows you to com
 Why should you learn MINIX instead of Linux? Or rather than another teaching OS such as xv6, NachOS, or Xinu?
 
 Unlike most of these systems, MINIX:
--Is heavily commented.
--Comes with three highly detailed books as its primary form of documentation.
--Has a much smaller and easier to understand kernel (it helps that it's a microkernel).
--Runs quite well on an emulator without melting your CPU (at least since the 2nd edition).
 
-Although xv6 and these other systems have been valuable tools for me (and may have extra features, like threads and NAT), I have found that the MINIX documentation is the most extensive and detailed.
+- Is heavily commented.
+- Comes with three highly detailed books as its primary form of documentation.
+- Has a much smaller and easier to understand kernel (it helps that it's a microkernel).
+- Runs quite well on an emulator without melting your CPU (at least since the 2nd edition).
+
+Although xv6 and these other systems have been valuable tools for me (and may have extra features, like threads and NAT), I have found that the MINIX documentation is the most extensive.
 
 ## Screenshots:
 
 The login screen:
+![login](https://github.com/o-oconnell/minixfromscratch/blob/main/screenshots/minixlogin.png)
 
 Using the built-in partition editor, `part`:
+![part](https://github.com/o-oconnell/minixfromscratch/blob/main/screenshots/part.png)
 
 Navigating the code in /usr/src:
+![src](https://github.com/o-oconnell/minixfromscratch/blob/main/screenshots/src.png)
 
 Recompiling the system:
+![recompile](https://github.com/o-oconnell/minixfromscratch/blob/main/screenshots/minixcompile.png)
 
 ## Minimal working example:
 Assuming you have QEMU installed, run `./qemuminix3.sh`. After it boots, you can login with username "root" and no password. To edit the code and recompile:
