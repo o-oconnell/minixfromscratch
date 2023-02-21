@@ -1,4 +1,4 @@
-# MINIX from Scratch
+# MINIX From Scratch
 
 ## Why MINIX?
 
