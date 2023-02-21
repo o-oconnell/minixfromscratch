@@ -37,17 +37,15 @@ Assuming you have QEMU installed, run `./qemuminix3.sh`. After it boots, you can
 
 - Exit MINIX with CTRL+ALT+DEL (if you do not, you may lose files that were not synced to the hard disk). You'll then need to close QEMU manually (MINIX doesn't know how).
 - Mount the root, usr, and home partitions with `./mountminix3`. Linux requires superuser permissions to mount a file system.
-- Make your edits to the code (for a start, maybe try modifying the [boot message](LINK GOES HERE) in usr/src/kernel/main.c).
+- Make your edits to the code (for a start, maybe try modifying the [boot message](https://github.com/o-oconnell/minixfromscratch/blob/master/minix-3.1.0/kernel/main.c#L175)).
 - Unmount the filesystems using `./umountminix3.sh` (also requires sudo).
 - Start the system again with `./qemuminix3.sh`
 
 ## Why learn MINIX instead of Linux:
 
 Relevant quotes from Andy Tanenbaum:
--(quote about young linus in college)
 
--(another relevant quote from andy tanenbaum about how small microkernel OS are much easier to understand)
-
+For people who thought little of MS-DOS , the existence of MINIX (with source code) as an alternative was even a reason to finally go out and buy a PC. One of these people was a Finnish student named Linus Torvalds. Torvalds installed MINIX on his new PC and studied the source code carefully...By Aug. 1991 he had produced a primitive kernel. On Aug. 25, 1991, he announced it on comp.os.minix...Thus was Linux born (OSDI, 3e, p.19).
 
 MINIX is a great tool for learning about Linux. MINIX is like a small and simplified version of Linux - Linus took heavy inspiration from it, and his legendary [("nothing big")](LINK GOES HERE) post announcing Linux was first posted on the comp.os.minix newsboard. Within MINIX you will find many familiar Linux tools and features, including:
 
