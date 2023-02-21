@@ -22,15 +22,19 @@ The login screen:
 ![login](https://github.com/o-oconnell/minixfromscratch/blob/master/screenshots/minixlogin.png)
 
 Using the built-in partition editor, `part`:
+
 ![part](https://github.com/o-oconnell/minixfromscratch/blob/master/screenshots/part.png)
 
 Editing code from the hard disk image mounted with `mountminix3.sh`:
+
 ![src](https://github.com/o-oconnell/minixfromscratch/blob/master/screenshots/editingminix3.png)
 
 Navigating the code in /usr/src:
+
 ![src](https://github.com/o-oconnell/minixfromscratch/blob/master/screenshots/src.png)
 
 Recompiling the system:
+
 ![recompile](https://github.com/o-oconnell/minixfromscratch/blob/master/screenshots/minixcompile.png)
 
 ## Minimal working example
