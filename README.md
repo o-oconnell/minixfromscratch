@@ -66,7 +66,7 @@ MINIX is a great tool for learning about Linux. MINIX is like a small and simpli
 - Networking 
 - System administration
 - Computer architecture
-- Compilers (MINIX ships with it's own miniature C compiler, ACKPACK)
+- Compilers (MINIX ships with its own miniature C compiler, ACKPACK)
 - Filesystems and disk partitioning
 - Hardware
 - Bash scripting
