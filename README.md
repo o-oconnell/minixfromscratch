@@ -38,7 +38,7 @@ Recompiling the system:
 ![recompile](https://github.com/o-oconnell/minixfromscratch/blob/master/screenshots/minixcompile.png)
 
 ## Minimal working example
-Assuming you have QEMU installed, run `./qemuminix3.sh`. After it boots, you can log in with username "root" and no password. To edit the code and recompile:
+Download the `.img` from [releases](https://github.com/o-oconnell/minixfromscratch/releases). Assuming you have QEMU installed, run `./qemuminix3.sh`. After it boots, you can log in with username "root" and no password. To edit the code and recompile:
 
 - Exit MINIX with CTRL+ALT+DEL (if you do not, you may lose files that were not synced to the hard disk). You'll then need to close QEMU manually (MINIX doesn't know how).
 - Mount the root, usr, and home partitions with `./mountminix3`. Linux requires superuser permissions to mount a file system.
