@@ -38,7 +38,7 @@ Recompiling the system:
 ![recompile](https://github.com/o-oconnell/minixfromscratch/blob/master/screenshots/minixcompile.png)
 
 ## Minimal working example
-Assuming you have QEMU installed, run `./qemuminix3.sh`. After it boots, you can log in with username "root" and no password. To edit the code and recompile:
+Download the `.img` from [releases](https://github.com/o-oconnell/minixfromscratch/releases). Assuming you have QEMU installed, run `./qemuminix3.sh`. After it boots, you can log in with username "root" and no password. To edit the code and recompile:
 
 - Exit MINIX with CTRL+ALT+DEL (if you do not, you may lose files that were not synced to the hard disk). You'll then need to close QEMU manually (MINIX doesn't know how).
 - Mount the root, usr, and home partitions with `./mountminix3`. Linux requires superuser permissions to mount a file system.
@@ -73,7 +73,7 @@ MINIX is a great tool for learning about Linux. MINIX is like a small and simpli
 - Data structures and algorithms
 
 ## Making your own hard disk image
-To make a bootable and editable hard disk image, you'll need to install it from the official MINIX CD. You can find it at [minix3.org](http://minix3.org). MINIX 3 comes with a `setup.sh` utility, which will install to the hard disk that you specify with your desired network card, partitions, etc.
+To make a bootable and editable hard disk image, you'll need to install it from the official MINIX CD. You can find it at [minix3.org](https://minix3.org). MINIX 3 comes with a `setup.sh` utility, which will install to the hard disk that you specify with your desired network card, partitions, etc.
 
 ## References
 - [Operating Systems: Design and Implementation (3e)](https://www.amazon.com/Operating-Systems-Design-Implementation-3rd/dp/0131429388)
