@@ -73,7 +73,7 @@ MINIX is a great tool for learning about Linux. MINIX is like a small and simpli
 - Data structures and algorithms
 
 ## Making your own hard disk image
-To make a bootable and editable hard disk image, you'll need to install it from the official MINIX CD. You can find it at [minix3.org](minix3.org). MINIX 3 comes with a `setup.sh` utility, which will install to the hard disk that you specify with your desired network card, partitions, etc.
+To make a bootable and editable hard disk image, you'll need to install it from the official MINIX CD. You can find it at [minix3.org](https://minix3.org). MINIX 3 comes with a `setup.sh` utility, which will install to the hard disk that you specify with your desired network card, partitions, etc.
 
 ## References
 - [Operating Systems: Design and Implementation (3e)](https://www.amazon.com/Operating-Systems-Design-Implementation-3rd/dp/0131429388)
