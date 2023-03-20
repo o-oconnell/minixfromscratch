@@ -57,7 +57,7 @@ For people who thought little of MS-DOS , the existence of MINIX (with source co
 MINIX is a great tool for learning about Linux. MINIX is like a small and simplified version of Linux - Linus took heavy inspiration from it, and his legendary ["nothing big"](https://www.cs.cmu.edu/~awb/linux.history.html) post announcing Linux was first posted on the comp.os.minix news board. Within MINIX you will find many familiar Unix/Linux tools and features, including:
 
 - A similar directory structure: files such as /etc/utmp, /etc/passwd, /dev are where you expect them to be.
-- A Bash interpreter (ash) with source code.
+- A POSIX sh interpreter (ash) with source code.
 - Similar filesystem conventions: just as in Linux, you can mount filesystems directly onto the root filesystem with `mount`.
 - A similar system administration structure, with familiar utilities like `chmod`, `mkfs`, `mkisofs` (`genisoimage`), `part` (similar to `fdisk` or `parted`) an Emacs clone (elle), and a Vim clone (evil). 
 
@@ -71,7 +71,7 @@ MINIX is a great tool for learning about Linux. MINIX is like a small and simpli
 - Compilers (MINIX ships with its own miniature C compiler, ACKPACK)
 - Filesystems and disk partitioning
 - Hardware
-- Bash scripting
+- POSIX sh scripting
 - Data structures and algorithms
 
 ## Making your own hard disk image
