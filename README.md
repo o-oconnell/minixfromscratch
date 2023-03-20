@@ -1,3 +1,5 @@
+## MINIX 2 Book Version recently added! Check releases: MINIX 2 is more education-focused and simpler than 3 yet equally well documented and comes with a [book](https://www.amazon.com/Operating-Systems-Design-Implementation-Second/dp/0136386776/ref=pd_lpo_3?pd_rd_w=RAFN1&content-id=amzn1.sym.116f529c-aa4d-4763-b2b6-4d614ec7dc00&).
+
 # MINIX From Scratch
 
 ## Why MINIX?
