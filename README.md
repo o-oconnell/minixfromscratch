@@ -79,7 +79,7 @@ To make a bootable and editable hard disk image, you'll need to install it from 
 
 ## References
 - [Operating Systems: Design and Implementation (3e)](https://www.amazon.com/Operating-Systems-Design-Implementation-3rd/dp/0131429388)
-- [Albert Woodhull's site](http://minix1.woodhull.com)
-- [The official MINIX site](http://minix3.org). Installation images can be downloaded from here.
+- [Albert Woodhull's site](https://minix1.woodhull.com)
+- [The official MINIX site](https://minix3.org). Installation images can be downloaded from here.
 - [Minix QD](https://github.com/davidgiven/minix2) (has Minix 1 and 2).
-- The [MINIX mailing list](http://groups.google.com/g/minix3)
+- The [MINIX mailing list](https://groups.google.com/g/minix3)
